@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Dokploy</title>
+</head>
+<body>
+  <h1>Chat con il modello</h1>
+  <textarea id="prompt" rows="3" cols="60" placeholder="Scrivi qui…"></textarea><br>
+  <button onclick="send()">Invia</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function send(){
+      const p = document.getElementById('prompt').value;
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({prompt:p})
+      });
+      const data = await res.json();
+      document.getElementById('output').textContent = data.response;
+    }
+  </script>
+</body>
+</html>
